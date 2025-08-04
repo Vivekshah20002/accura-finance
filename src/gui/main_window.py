@@ -22,6 +22,18 @@ try:
     from src.gui.login_window import LoginWindow
 except ImportError as e:
     print(f"Modül import hatası: {e}")
+    # Alternatif import yolu dene
+    try:
+        import sys
+        import os
+        sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+        from src.database.connection import get_database_manager
+        from src.utils.config import ConfigManager
+        from src.utils.logger import setup_logger
+        from src.gui.login_window import LoginWindow
+    except ImportError as e2:
+        print(f"Alternatif import da başarısız: {e2}")
+        ConfigManager = None
 
 # GUI modüllerini lazy import
 DashboardFrame = None
@@ -40,8 +52,15 @@ class AccuraFinanceApp:
         self.root = ctk.CTk()
         self.current_user = None
         self.db_manager = None
-        self.config_manager = ConfigManager()
-        self.logger = setup_logger('AccuraFinance')
+        
+        # ConfigManager kontrolü
+        if ConfigManager is not None:
+            self.config_manager = ConfigManager()
+        else:
+            self.config_manager = None
+            print("Uyarı: ConfigManager yüklenemedi, varsayılan ayarlar kullanılacak")
+            
+        self.logger = setup_logger('AccuraFinance') if 'setup_logger' in globals() else None
         
         # Ana pencere yapılandırması
         self.setup_main_window()
@@ -278,26 +297,36 @@ class AccuraFinanceApp:
     def check_database_connection(self):
         """Veritabanı bağlantısını kontrol et"""
         try:
-            self.db_manager = get_database_manager()
-            
-            # Veritabanını oluştur (yoksa)
-            if not self.db_manager.create_database_if_not_exists():
-                self.show_error("Veritabanı oluşturulamadı!")
+            if 'get_database_manager' in globals():
+                self.db_manager = get_database_manager()
+                
+                # Veritabanını oluştur (yoksa)
+                if not self.db_manager.create_database_if_not_exists():
+                    self.show_error("Veritabanı oluşturulamadı!")
+                    return False
+                
+                # Bağlantıyı test et
+                if not self.db_manager.test_connection():
+                    self.show_error("Veritabanı bağlantısı başarısız!")
+                    return False
+                
+                # Tabloları oluştur
+                self.initialize_database()
+                
+                if self.logger:
+                    self.logger.info("Veritabanı bağlantısı başarılı")
+                print("Veritabanı bağlantısı başarılı")
+                return True
+            else:
+                print("Uyarı: get_database_manager fonksiyonu bulunamadı")
+                self.db_manager = None
                 return False
-            
-            # Bağlantıyı test et
-            if not self.db_manager.test_connection():
-                self.show_error("Veritabanı bağlantısı başarısız!")
-                return False
-            
-            # Tabloları oluştur
-            self.initialize_database()
-            
-            self.logger.info("Veritabanı bağlantısı başarılı")
-            return True
             
         except Exception as e:
-            self.logger.error(f"Veritabanı bağlantı hatası: {e}")
+            if self.logger:
+                self.logger.error(f"Veritabanı bağlantı hatası: {e}")
+            else:
+                print(f"Veritabanı bağlantı hatası: {e}")
             self.show_error(f"Veritabanı hatası: {e}")
             return False
     
@@ -307,25 +336,45 @@ class AccuraFinanceApp:
             # SQL script'lerini çalıştır
             script_dir = os.path.join(os.path.dirname(__file__), '..', 'database')
             
-            # Tabloları oluştur
+            # Tabloları oluştur (IF NOT EXISTS kontrolü ile)
             tables_script = os.path.join(script_dir, 'create_tables.sql')
             if os.path.exists(tables_script):
-                self.db_manager.execute_script(tables_script)
-                self.logger.info("Veritabanı tabloları oluşturuldu")
+                try:
+                    self.db_manager.execute_script(tables_script)
+                    if self.logger:
+                        self.logger.info("Veritabanı tabloları kontrol edildi")
+                except Exception as e:
+                    # Tablo zaten varsa hatayı yok say
+                    if "already an object named" in str(e):
+                        print("Veritabanı tabloları zaten mevcut")
+                        if self.logger:
+                            self.logger.info("Veritabanı tabloları zaten mevcut")
+                    else:
+                        raise e
             
             # Başlangıç verilerini ekle
             data_script = os.path.join(script_dir, 'initial_data.sql')
             if os.path.exists(data_script):
                 # Sadece ilk kurulumda çalıştır
-                result = self.db_manager.execute_query(
-                    "SELECT COUNT(*) as count FROM Users WHERE Username = 'admin'"
-                )
-                if result and result[0]['count'] == 0:
-                    self.db_manager.execute_script(data_script)
-                    self.logger.info("Başlangıç verileri eklendi")
+                try:
+                    result = self.db_manager.execute_query(
+                        "SELECT COUNT(*) as count FROM Users WHERE Username = 'admin'"
+                    )
+                    if result and result[0]['count'] == 0:
+                        self.db_manager.execute_script(data_script)
+                        if self.logger:
+                            self.logger.info("Başlangıç verileri eklendi")
+                        print("Başlangıç verileri eklendi")
+                    else:
+                        print("Admin kullanıcısı zaten mevcut")
+                except Exception as e:
+                    print(f"Başlangıç verileri kontrol hatası: {e}")
             
         except Exception as e:
-            self.logger.error(f"Veritabanı başlatma hatası: {e}")
+            if self.logger:
+                self.logger.error(f"Veritabanı başlatma hatası: {e}")
+            else:
+                print(f"Veritabanı başlatma hatası: {e}")
     
     def show_login(self):
         """Login penceresi göster"""
