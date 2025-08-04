@@ -166,7 +166,7 @@ flake8 src/
 ## 📞 İletişim
 
 **Geliştirici**: Pınar Topuz  
-**Email**: [pinar@example.com](mailto:pinar@example.com)  
+**Email**: [piinartp@gmail.com](mailto:piinartp@gmail.com)  
 **LinkedIn**: [linkedin.com/in/pinar-topuz](https://linkedin.com/in/pinar-topuz)  
 **GitHub**: [@ThecoderPinar](https://github.com/ThecoderPinar)
 
